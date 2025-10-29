@@ -2,19 +2,23 @@
   "name": "yandex-messenger-electron",
   "version": "1.0.0",
   "description": "Electron wrapper for https://messenger.360.yandex.ru that behaves like a single Chrome tab.",
-  "main": "main.js",
+  "main": "build/main.js",
   "author": {
     "name": "sandman",
     "email": "sandman10@yandex.ru"
   },
   "license": "MIT",
   "scripts": {
-    "start": "GTK_MODULES= electron .",
-    "dist": "electron-builder"
+    "build": "tsc --project tsconfig.json",
+    "start": "npm run build && GTK_MODULES= electron .",
+    "dist": "npm run build && electron-builder"
   },
   "devDependencies": {
+    "@types/electron": "^25.5.7",
+    "@types/node": "^20.14.11",
     "electron": "^39.0.0",
-    "electron-builder": "^25.1.8"
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "dotenv": "^16.4.5"
@@ -22,7 +26,7 @@
   "build": {
     "appId": "electron.test.yandex.messenger",
     "productName": "Yandex Messenger",
-    "afterPack": "scripts/afterPack.js",
+    "afterPack": "build/scripts/afterPack.js",
     "linux": {
       "target": ["AppImage"],
       "category": "Network",
@@ -31,10 +35,10 @@
       "executableArgs": ["--no-sandbox", "--disable-setuid-sandbox"]
     },
     "files": [
-      "main.js",
-      "app/**",
-      "preload.js",
-      "icons/**"
+      "build/**",
+      "icons/**",
+      "package.json",
+      "node_modules/**"
     ],
     "deb": {
       "maintainer": "sandman <sandman10@yandex.ru>",

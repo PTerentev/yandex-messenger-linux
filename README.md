@@ -2,11 +2,14 @@
 
 A minimal Electron app that opens https://messenger.360.yandex.ru and behaves like a single Chrome tab.
 
+Source code is written in TypeScript (`src/`) and compiled to plain JavaScript in `build/`.
+
 ## Run in dev
 ```bash
 cd yandex-messenger-electron
 npm i
 npm start
+# or run only the TypeScript build: npm run build
 ```
 
 ## Build AppImage (Linux)
