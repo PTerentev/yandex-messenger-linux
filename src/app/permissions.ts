@@ -9,7 +9,7 @@ import type {
 	Session,
 	WebContents,
 } from "electron";
-import { ALLOWED_PERMISSIONS, METRIKA_FILTER, type AllowedPermission } from "./config";
+import { ALLOWED_PERMISSIONS, type AllowedPermission } from "./config";
 
 type PermissionRequestDetails =
 	| PermissionRequest
@@ -69,13 +69,6 @@ export function registerSessionGuards(sess: Session): void {
 	if (typeof sess.setDevicePermissionHandler === "function") {
 		sess.setDevicePermissionHandler(() => false);
 	}
-
-	sess.webRequest.onBeforeRequest(METRIKA_FILTER, (details: OnBeforeRequestListenerDetails, callback) => {
-		const extended = details as OnBeforeRequestListenerDetails & { initiator?: string };
-		const origin = extended.initiator || details.referrer || "";
-		if (isYandexOrigin(origin)) return callback({ cancel: false });
-		return callback({ cancel: true });
-	});
 
 	if (typeof sess.setDisplayMediaRequestHandler === "function") {
 		sess.setDisplayMediaRequestHandler((request, callback) => {

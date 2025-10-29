@@ -33,15 +33,6 @@ export const ALLOWED_PERMISSIONS: ReadonlySet<AllowedPermission> = Object.freeze
 	]),
 );
 
-export const METRIKA_FILTER = Object.freeze({
-	urls: [
-		"https://mc.yandex.ru/*",
-		"https://mc.yandex.com/*",
-		"https://metrika.yandex.ru/*",
-		"https://metrika.yandex.com/*",
-	],
-});
-
 export const WINDOW_CONFIG: Readonly<BrowserWindowConstructorOptions> = Object.freeze({
 	width: 1200,
 	height: 800,
