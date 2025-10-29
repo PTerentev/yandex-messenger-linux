@@ -8,6 +8,23 @@ const {
   setQuitting,
 } = require("./app/windowManager");
 
+// Enforce single instance (mutex) so only one app runs.
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+  // Ensure immediate exit to avoid scheduling any work.
+  try { process.exit(0); } catch {}
+} else {
+  app.on('second-instance', () => {
+    const win = getMainWindow();
+    if (win) {
+      focusMainWindow();
+      return;
+    }
+    createWindowWithTray();
+  });
+}
+
 
 function createWindowWithTray() {
   return createMainWindow({
