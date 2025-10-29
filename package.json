@@ -13,17 +13,19 @@
     "dist": "electron-builder"
   },
   "devDependencies": {
-    "electron": "^31.2.0",
+    "electron": "^39.0.0",
     "electron-builder": "^25.1.8"
   },
   "build": {
     "appId": "electron.test.yandex.messenger",
     "productName": "Yandex Messenger",
+    "afterPack": "scripts/afterPack.js",
     "linux": {
-      "target": ["deb", "AppImage"],
+      "target": ["AppImage"],
       "category": "Network",
       "icon": "icons",
-      "executableName": "yandex-messenger"
+      "executableName": "yandex-messenger",
+      "executableArgs": ["--no-sandbox", "--disable-setuid-sandbox"]
     },
     "files": [
       "main.js",

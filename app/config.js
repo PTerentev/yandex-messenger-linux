@@ -42,7 +42,7 @@ const WINDOW_CONFIG = Object.freeze({
     preload: PRELOAD_PATH,
     contextIsolation: true,
     nodeIntegration: false,
-    sandbox: true
+    sandbox: false
   }
 });
 

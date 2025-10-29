@@ -1,10 +1,12 @@
-const { contextBridge, ipcRenderer } = require('electron');
+const { ipcRenderer } = require('electron');
 
 (function patchNotifications() {
   const NativeNotification = window.Notification;
 
   // Always report permission as granted
-  Object.defineProperty(window.Notification, 'permission', { get: () => 'granted' });
+  Object.defineProperty(window.Notification, 'permission', {
+    get: () => 'granted',
+  });
   window.Notification.requestPermission = async () => 'granted';
 
   // Proxy constructor
