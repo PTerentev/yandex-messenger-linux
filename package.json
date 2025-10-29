@@ -1,0 +1,41 @@
+{
+  "name": "yandex-messenger-electron",
+  "version": "1.0.0",
+  "description": "Electron wrapper for https://messenger.360.yandex.ru that behaves like a single Chrome tab.",
+  "main": "main.js",
+  "author": {
+    "name": "sandman",
+    "email": "sandman10@yandex.ru"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "GTK_MODULES= electron .",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^31.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "electron.test.yandex.messenger",
+    "productName": "Yandex Messenger",
+    "linux": {
+      "target": ["deb", "AppImage"],
+      "category": "Network",
+      "icon": "icons",
+      "executableName": "yandex-messenger"
+    },
+    "files": [
+      "main.js",
+      "app/**",
+      "preload.js",
+      "icons/**"
+    ],
+    "deb": {
+      "maintainer": "sandman <sandman10@yandex.ru>",
+      "synopsis": "Yandex Messenger for Linux",
+      "description": "A native-like Electron wrapper for https://messenger.360.yandex.ru with tray, notifications, and in-app navigation for Yandex domains."
+    }
+  },
+  "homepage": "https://messenger.360.yandex.ru"
+}

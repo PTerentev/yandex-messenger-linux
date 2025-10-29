@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Builds
+dist/
+out/
+build/
+release/
+
+# Electron cache/state
+.electron/
+.cache/
+
+# Logs and diagnostics
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.idea/
+.vscode/
+
+# Coverage / test output
+coverage/
+.nyc_output/
+
+# Misc
+*.swp
+*.swo
