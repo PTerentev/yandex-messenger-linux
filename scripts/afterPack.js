@@ -30,6 +30,7 @@ module.exports = async function afterPack(context) {
     const wrapper = `#!/usr/bin/env bash\n` +
       `set -euo pipefail\n` +
       `export ELECTRON_DISABLE_SANDBOX=1\n` +
+      `export ENVIRONMENT=production\n` +
       `exec "$(dirname "$0")/${exeName}-bin" --no-sandbox --disable-setuid-sandbox --disable-gpu-sandbox "$@"\n`;
     await fs.writeFile(exePath, wrapper, { mode: 0o755 });
     console.log('[afterPack] Wrapped executable with no-sandbox launcher');

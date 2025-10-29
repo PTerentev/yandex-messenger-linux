@@ -1,6 +1,7 @@
 const { app, session } = require('electron');
 const { registerSessionGuards } = require("./app/permissions");
 const { registerNotificationBridge } = require("./app/notifications");
+const { ensureAutostart, shouldEnableAutostart } = require('./app/autostart');
 const {
   createMainWindow,
   focusMainWindow,
@@ -42,6 +43,11 @@ async function bootstrap() {
 
   createWindowWithTray();
 
+  // Enable autostart only for production/non-debug runs (env-driven).
+  if (shouldEnableAutostart(app)) {
+    try { await ensureAutostart(app, true); } catch {}
+  }
+
   app.on("activate", () => {
     const win = getMainWindow();
     if (!win) {
@@ -69,3 +75,5 @@ app.on("window-all-closed", () => {
     // Keep running in the tray until the user chooses Quit.
   }
 });
+// Load environment variables from .env early.
+require('./app/env').loadEnv();
