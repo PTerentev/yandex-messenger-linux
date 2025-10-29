@@ -40,6 +40,11 @@ export function showNativeNotification(payload: NotificationPayload): void {
 	const notification = new Notification(normalizePayload(payload));
 	notification.on("click", () => focusWindow(getMainWindow()));
 	notification.show();
+
+	const win = getMainWindow();
+	if (win && !win.isDestroyed() && !win.isFocused()) {
+		win.flashFrame?.(true);
+	}
 }
 
 export function registerNotificationBridge(): void {

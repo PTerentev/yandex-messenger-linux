@@ -21,6 +21,9 @@ function focusWindow(win: BrowserWindow | null): void {
 	if (!win.isVisible()) win.show();
 	if (win.isMinimized()) win.restore();
 	win.focus();
+	if (typeof win.flashFrame === "function") {
+		win.flashFrame(false);
+	}
 }
 
 interface CreateMainWindowOptions {
@@ -55,6 +58,12 @@ export function createMainWindow({ startInTray = false, onQuit }: CreateMainWind
 
 	win.once("ready-to-show", () => {
 		if (!startInTray) win.show();
+	});
+
+	win.on("focus", () => {
+		if (typeof win.flashFrame === "function") {
+			win.flashFrame(false);
+		}
 	});
 
 	win.webContents.on("dom-ready", () => {
