@@ -1,50 +1,53 @@
 {
-  "name": "yandex-messenger-electron",
-  "version": "1.0.0",
-  "description": "Electron wrapper for https://messenger.360.yandex.ru that behaves like a single Chrome tab.",
-  "main": "build/main.js",
-  "author": {
-    "name": "sandman",
-    "email": "sandman10@yandex.ru"
-  },
-  "license": "MIT",
-  "scripts": {
-    "build": "tsc --project tsconfig.json",
-    "start": "npm run build && GTK_MODULES= electron .",
-    "dist": "npm run build && electron-builder"
-  },
-  "devDependencies": {
-    "@types/electron": "^25.5.7",
-    "@types/node": "^20.14.11",
-    "electron": "^39.0.0",
-    "electron-builder": "^25.1.8",
-    "typescript": "^5.6.3"
-  },
-  "dependencies": {
-    "dotenv": "^16.4.5"
-  },
-  "build": {
-    "appId": "electron.test.yandex.messenger",
-    "productName": "Yandex Messenger",
-    "afterPack": "build/scripts/afterPack.js",
-    "linux": {
-      "target": ["AppImage"],
-      "category": "Network",
-      "icon": "icons",
-      "executableName": "yandex-messenger",
-      "executableArgs": ["--no-sandbox", "--disable-setuid-sandbox"]
-    },
-    "files": [
-      "build/**",
-      "icons/**",
-      "package.json",
-      "node_modules/**"
-    ],
-    "deb": {
-      "maintainer": "sandman <sandman10@yandex.ru>",
-      "synopsis": "Yandex Messenger for Linux",
-      "description": "A native-like Electron wrapper for https://messenger.360.yandex.ru with tray, notifications, and in-app navigation for Yandex domains."
-    }
-  },
-  "homepage": "https://messenger.360.yandex.ru"
+	"name": "yandex-messenger-electron",
+	"version": "1.0.0",
+	"description": "Electron wrapper for https://messenger.360.yandex.ru that behaves like a single Chrome tab.",
+	"main": "build/main.js",
+	"author": {
+		"name": "sandman",
+		"email": "sandman10@yandex.ru"
+	},
+	"license": "MIT",
+	"scripts": {
+		"build": "tsc --project tsconfig.json",
+		"start": "npm run build && GTK_MODULES= electron .",
+		"dist": "npm run build && electron-builder"
+	},
+	"devDependencies": {
+		"electron": "^39.0.0",
+		"electron-builder": "^25.1.8",
+		"typescript": "^5.6.3"
+	},
+	"dependencies": {
+		"dotenv": "^16.4.5"
+	},
+	"build": {
+		"appId": "electron.test.yandex.messenger",
+		"productName": "Yandex Messenger",
+		"afterPack": "build/scripts/afterPack.js",
+		"linux": {
+			"target": [
+				"AppImage"
+			],
+			"category": "Network",
+			"icon": "icons",
+			"executableName": "yandex-messenger",
+			"executableArgs": [
+				"--no-sandbox",
+				"--disable-setuid-sandbox"
+			]
+		},
+		"files": [
+			"build/**",
+			"icons/**",
+			"package.json",
+			"node_modules/**"
+		],
+		"deb": {
+			"maintainer": "sandman <sandman10@yandex.ru>",
+			"synopsis": "Yandex Messenger for Linux",
+			"description": "A native-like Electron wrapper for https://messenger.360.yandex.ru with tray, notifications, and in-app navigation for Yandex domains."
+		}
+	},
+	"homepage": "https://messenger.360.yandex.ru"
 }
