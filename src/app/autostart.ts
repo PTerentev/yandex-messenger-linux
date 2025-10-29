@@ -5,7 +5,7 @@ import type { App } from "electron";
 import { APP_NAME } from "./config";
 import { ENVIRONMENTS, getEnvironment } from "./env";
 
-const DESKTOP_FILE_NAME = "yandex-messenger.terentev.desktop";
+const DESKTOP_FILE_NAME = "yandex-messenger.electron.desktop";
 
 function getAutostartDir(): string {
 	return path.join(os.homedir(), ".config", "autostart");

@@ -3,6 +3,19 @@ import { APP_NAME, ICON_PATH } from "./config";
 
 let tray: Tray | null = null;
 
+function toggleWindowFromTray(win: BrowserWindow): void {
+	if (win.isDestroyed()) return;
+
+	if (win.isVisible()) {
+		win.hide();
+		return;
+	}
+
+	win.show();
+	if (win.isMinimized()) win.restore();
+	win.focus();
+}
+
 export function createTray(win: BrowserWindow, onQuit?: () => void): Tray {
 	if (tray) tray.destroy();
 
@@ -14,8 +27,7 @@ export function createTray(win: BrowserWindow, onQuit?: () => void): Tray {
 		{
 			label: "Show/Hide",
 			click: () => {
-				if (win.isVisible()) win.hide();
-				else win.show();
+				toggleWindowFromTray(win);
 			},
 		},
 		{ label: "Reload", click: () => win.reload() },
@@ -31,8 +43,7 @@ export function createTray(win: BrowserWindow, onQuit?: () => void): Tray {
 
 	tray.setContextMenu(contextMenu);
 	tray.on("click", () => {
-		if (win.isVisible()) win.hide();
-		else win.show();
+		toggleWindowFromTray(win);
 	});
 
 	return tray;

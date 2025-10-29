@@ -2,7 +2,6 @@ import { desktopCapturer } from "electron";
 import type {
 	FilesystemPermissionRequest,
 	MediaAccessPermissionRequest,
-	OnBeforeRequestListenerDetails,
 	OpenExternalPermissionRequest,
 	PermissionCheckHandlerHandlerDetails,
 	PermissionRequest,
