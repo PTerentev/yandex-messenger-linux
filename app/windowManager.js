@@ -24,7 +24,8 @@ function focusWindow(win) {
 function createMainWindow({ startInTray = false, onQuit } = {}) {
   const win = new BrowserWindow({
     ...WINDOW_CONFIG,
-    show: !startInTray
+    // Always create hidden first; show on 'ready-to-show' if not starting in tray.
+    show: false
   });
 
   mutateUserAgent(win);
@@ -35,13 +36,21 @@ function createMainWindow({ startInTray = false, onQuit } = {}) {
     return { action: 'deny' };
   });
 
+  // Only divert non-Yandex navigations to external browser; allow in-app Yandex flow.
   win.webContents.on('will-navigate', (event, targetUrl) => {
-    event.preventDefault();
-    openExternalSafe(targetUrl);
+    if (!isYandexUrl(targetUrl)) {
+      event.preventDefault();
+      openExternalSafe(targetUrl);
+    }
   });
 
   win.loadURL(START_URL).catch((err) => {
     console.error('Failed to load start URL', err);
+  });
+
+  // Show when ready unless starting hidden in tray
+  win.once('ready-to-show', () => {
+    if (!startInTray) win.show();
   });
 
   win.on('close', (event) => {

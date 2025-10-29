@@ -13,6 +13,16 @@ function getDesktopFilePath() {
   return path.join(getAutostartDir(), 'yandex-messenger.terentev.desktop');
 }
 
+function resolveExecPath() {
+  // Prefer the AppImage file path if present; process.execPath inside
+  // an AppImage points to a temporary mount that won't exist on reboot.
+  const appImage = process.env.APPIMAGE;
+  if (appImage && appImage.trim().length > 0) {
+    return appImage;
+  }
+  return process.execPath;
+}
+
 function buildDesktopContent(app, execPath) {
   const name = app.getName ? app.getName() : APP_NAME;
   const lines = [
@@ -45,7 +55,7 @@ async function ensureAutostart(app) {
 
   await fs.mkdir(autostartDir, { recursive: true });
 
-  const desired = buildDesktopContent(app, process.execPath);
+  const desired = buildDesktopContent(app, resolveExecPath());
   let current = null;
   try { current = await fs.readFile(desktopPath, 'utf8'); } catch {}
   if (current !== desired) {
