@@ -1,4 +1,4 @@
-const { ALLOWED_PERMISSIONS, METRIKA_FILTER } = require('./config');
+const { ALLOWED_PERMISSIONS } = require('./config');
 
 function allowsMedia(details) {
   const types = (details && details.mediaTypes) || [];
@@ -22,10 +22,6 @@ function registerSessionGuards(sess) {
       return false;
     });
   }
-
-  sess.webRequest.onBeforeRequest(METRIKA_FILTER, (_details, callback) => {
-    callback({ cancel: true });
-  });
 }
 
 module.exports = {

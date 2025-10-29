@@ -20,15 +20,6 @@ const ALLOWED_PERMISSIONS = Object.freeze(new Set([
   'clipboard-sanitized-write'
 ]));
 
-const METRIKA_FILTER = Object.freeze({
-  urls: [
-    'https://mc.yandex.ru/*',
-    'https://mc.yandex.com/*',
-    'https://metrika.yandex.ru/*',
-    'https://metrika.yandex.com/*'
-  ]
-});
-
 const WINDOW_CONFIG = Object.freeze({
   width: 1200,
   height: 800,
@@ -53,6 +44,5 @@ module.exports = {
   UA_CHROME_VERSION,
   ICON_PATH,
   WINDOW_CONFIG,
-  ALLOWED_PERMISSIONS,
-  METRIKA_FILTER
+  ALLOWED_PERMISSIONS
 };
